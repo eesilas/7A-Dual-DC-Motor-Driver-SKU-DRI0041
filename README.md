@@ -94,3 +94,21 @@ Pluggable Connector
 The connectors are designed to be pluggable. This allows you to attach wires with male or female terminations.
 
 DRI0041 2x7A DC Motor Driver Connection Diagram
+
+Mega 2560 Pro control 2 Motor Drivers
+Key Features:
+Extended to 4 Motors: Uses two DRI0041 motor drivers (each controlling 2 motors)
+Individual Control: Each motor has its own set of control functions (forward, backward, brake)
+Group Control: Convenience functions to control all motors simultaneously
+Test Sequence: Demonstrates both individual and group motor control
+PWM Speed Control: All motors support variable speed control
+Pin Configuration:
+First Motor Driver (Motors 1 & 2):
+
+Motor 1: IN1(5), IN2(4), ENA(6)
+Motor 2: IN3(8), IN4(7), ENB(9)
+Second Motor Driver (Motors 3 & 4):
+
+Motor 3: IN5(22), IN6(23), ENC(24)
+Motor 4: IN7(25), IN8(26), END(27)
+You can modify the pin assignments as needed for your specific wiring configuration. The program includes a test sequence that demonstrates all motor functions.
