@@ -1,0 +1,179 @@
+/*
+* @file 4_Motor_Control_DRI0041.ino
+* @brief Control 4 motors using two DRI0041 dual motor drivers
+*
+* This program extends the original 2-motor control to 4 motors
+* using two sets of motor drivers (each controlling 2 motors)
+*
+* @author [Your Name]
+* @version V1.0
+* @date [Current Date]
+*/
+
+// First Motor Driver Pins (Motors 1 & 2)
+const int IN1 = 5;    // Motor 1 direction pin 1
+const int IN2 = 4;    // Motor 1 direction pin 2
+const int ENA = 6;    // Motor 1 speed control (PWM)
+
+const int IN3 = 8;    // Motor 2 direction pin 1
+const int IN4 = 7;    // Motor 2 direction pin 2
+const int ENB = 9;    // Motor 2 speed control (PWM)
+
+// Second Motor Driver Pins (Motors 3 & 4)
+const int IN5 = 22;   // Motor 3 direction pin 1
+const int IN6 = 23;   // Motor 3 direction pin 2
+const int ENC = 24;   // Motor 3 speed control (PWM)
+
+const int IN7 = 25;   // Motor 4 direction pin 1
+const int IN8 = 26;   // Motor 4 direction pin 2
+const int END = 27;   // Motor 4 speed control (PWM)
+
+void setup() {
+  // Initialize first motor driver pins
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENB, OUTPUT);
+  
+  // Initialize second motor driver pins
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(ENC, OUTPUT);
+  
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+  pinMode(END, OUTPUT);
+  
+  // Start with all motors stopped
+  allMotorsBrake();
+}
+
+void loop() {
+  // Test sequence for all motors
+  
+  // All motors forward
+  allMotorsForward(200);
+  delay(1000);
+  
+  // All motors brake
+  allMotorsBrake();
+  delay(500);
+  
+  // All motors backward
+  allMotorsBackward(200);
+  delay(1000);
+  
+  // All motors brake
+  allMotorsBrake();
+  delay(500);
+  
+  // Individual motor control demonstration
+  Motor1_Forward(150);
+  delay(500);
+  Motor2_Backward(150);
+  delay(500);
+  Motor3_Forward(150);
+  delay(500);
+  Motor4_Backward(150);
+  delay(500);
+  
+  allMotorsBrake();
+  delay(1000);
+}
+
+// Motor 1 control functions
+void Motor1_Forward(int Speed) {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(ENA, Speed);
+}
+
+void Motor1_Backward(int Speed) {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(ENA, Speed);
+}
+
+void Motor1_Brake() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+}
+
+// Motor 2 control functions
+void Motor2_Forward(int Speed) {
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  analogWrite(ENB, Speed);
+}
+
+void Motor2_Backward(int Speed) {
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  analogWrite(ENB, Speed);
+}
+
+void Motor2_Brake() {
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+}
+
+// Motor 3 control functions
+void Motor3_Forward(int Speed) {
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+  analogWrite(ENC, Speed);
+}
+
+void Motor3_Backward(int Speed) {
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+  analogWrite(ENC, Speed);
+}
+
+void Motor3_Brake() {
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, LOW);
+}
+
+// Motor 4 control functions
+void Motor4_Forward(int Speed) {
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+  analogWrite(END, Speed);
+}
+
+void Motor4_Backward(int Speed) {
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+  analogWrite(END, Speed);
+}
+
+void Motor4_Brake() {
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, LOW);
+}
+
+// Convenience functions for all motors
+void allMotorsForward(int Speed) {
+  Motor1_Forward(Speed);
+  Motor2_Forward(Speed);
+  Motor3_Forward(Speed);
+  Motor4_Forward(Speed);
+}
+
+void allMotorsBackward(int Speed) {
+  Motor1_Backward(Speed);
+  Motor2_Backward(Speed);
+  Motor3_Backward(Speed);
+  Motor4_Backward(Speed);
+}
+
+void allMotorsBrake() {
+  Motor1_Brake();
+  Motor2_Brake();
+  Motor3_Brake();
+  Motor4_Brake();
+}
